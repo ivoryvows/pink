@@ -1,1 +1,546 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#fff5f5">
+
+<title>Wedding Invitation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: #fff8f7;
+}
+
+body {
+  background: #fff8f7;
+  overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
+}
+
+body.unlocked {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* OPENING COVER */
+
+#cover {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #fff7f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+
+#cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 1.5s cubic-bezier(.2,.8,.2,1);
+}
+
+#cover.opening img {
+  transform: scale(1.3);
+}
+
+#cover.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* MAIN WEBSITE */
+
+#website {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.2s ease;
+}
+
+#website.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* IMAGES - NO GAPS */
+
+.invite-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: none;
+  vertical-align: top;
+}
+
+/* MUSIC PLAYER */
+
+.music-section {
+  width: 100%;
+  padding: 24px 18px;
+  background: linear-gradient(
+    135deg,
+    #fff5f3,
+    #fce8e8,
+    #fff9f2
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.music-player {
+  width: 100%;
+  max-width: 390px;
+  padding: 15px 19px;
+  border: 1px solid rgba(195,145,115,.5);
+  border-radius: 50px;
+  background: linear-gradient(
+    110deg,
+    #fffaf6,
+    #fff0ee,
+    #fffaf5
+  );
+  box-shadow:
+    0 5px 18px rgba(169,115,110,.12),
+    inset 0 1px 5px white;
+}
+
+.music-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.music-icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5dfd9;
+  color: #b68b66;
+  font-size: 16px;
+}
+
+.music-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.music-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  color: #a77c66;
+  letter-spacing: 1px;
+}
+
+.music-subtitle {
+  font-size: 9px;
+  color: #bd9990;
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+
+#playBtn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid #d7b18e;
+  background: linear-gradient(145deg,#fff,#f5dcd7);
+  color: #b98768;
+  font-size: 17px;
+  cursor: pointer;
+  box-shadow: 0 2px 7px rgba(180,130,110,.15);
+}
+
+.music-bottom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.music-time {
+  font-size: 9px;
+  color: #b18c7b;
+}
+
+.progress-track {
+  height: 3px;
+  flex: 1;
+  background: #ecd5d0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#progress {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg,#d9a9a0,#c9a16e);
+}
+
+/* VENUE ON IMAGE 3 */
+
+.venue-image {
+  position: relative;
+  width: 100%;
+  line-height: 0;
+}
+
+.venue-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.venue-address {
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  transform: translateX(-50%);
+  width: 90%;
+  text-align: center;
+  line-height: 1.5;
+  color: #9b745e;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(12px, 3.3vw, 19px);
+  letter-spacing: 1.1px;
+  font-weight: 600;
+  text-shadow: 0 1px 5px #fff9f3;
+}
+
+.map-link {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 6px 16px;
+  border: 1px solid #c6a17d;
+  border-radius: 30px;
+  background: rgba(255,248,243,.88);
+  color: #987253;
+  text-decoration: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  line-height: 1.5;
+}
+
+/* FALLING PINK & GOLD DOTS */
+
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.dot {
+  position: absolute;
+  top: -15px;
+  border-radius: 50%;
+  opacity: 0;
+  animation: falling linear infinite;
+}
+
+@keyframes falling {
+  0% {
+    transform: translate3d(0,-20px,0);
+    opacity: 0;
+  }
+  10% {
+    opacity: .8;
+  }
+  85% {
+    opacity: .65;
+  }
+  100% {
+    transform: translate3d(35px,110vh,0);
+    opacity: 0;
+  }
+}
+
+/* MOBILE */
+
+@media(max-width:600px) {
+  .music-section {
+    padding: 18px 14px;
+  }
+
+  .venue-address {
+    bottom: 3%;
+    font-size: 12px;
+    letter-spacing: .8px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- OPENING COVER -->
+
+<div id="cover" onclick="openInvitation()">
+  <img src="1.JPG" alt="Wedding Invitation Cover">
+</div>
+
+<!-- FALLING PARTICLES -->
+
+<div id="particles"></div>
+
+<!-- WEBSITE -->
+
+<main id="website">
+
+  <!-- SECOND IMAGE -->
+
+  <img
+    src="2.JPG"
+    class="invite-image"
+    alt="Wedding Invitation Reveal"
+  >
+
+  <!-- PIANO MUSIC PLAYER -->
+
+  <section class="music-section">
+
+    <div class="music-player">
+
+      <div class="music-top">
+
+        <div class="music-icon">♫</div>
+
+        <div class="music-info">
+          <div class="music-title">A Melody of Love</div>
+          <div class="music-subtitle">OUR SPECIAL MOMENT</div>
+        </div>
+
+        <button id="playBtn" onclick="toggleMusic()">
+          ▶
+        </button>
+
+      </div>
+
+      <div class="music-bottom">
+
+        <span class="music-time" id="currentTime">0:00</span>
+
+        <div class="progress-track">
+          <div id="progress"></div>
+        </div>
+
+        <span class="music-time" id="duration">0:00</span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- PIANO AUDIO -->
+
+  <audio id="music" loop preload="auto">
+    <source src="piano.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- THIRD IMAGE WITH VENUE -->
+
+  <section class="venue-image">
+
+    <img src="3.JPG" alt="Wedding Venue">
+
+    <div class="venue-address">
+
+      THE GROSVENOR CHAPEL<br>
+      24 SOUTH AUDLEY STREET<br>
+      MAYFAIR, LONDON W1K 2PA
+
+      <br>
+
+      <a
+        class="map-link"
+        href="https://www.google.com/maps/search/?api=1&query=The+Grosvenor+Chapel+24+South+Audley+Street+Mayfair+London+W1K+2PA"
+        target="_blank"
+        rel="noopener"
+      >
+        VIEW LOCATION ON MAP
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- REMAINING INVITATION IMAGES -->
+
+  <img src="4.JPG" class="invite-image" alt="Invitation 4">
+
+  <img src="5.JPG" class="invite-image" alt="Invitation 5">
+
+  <img src="6.JPG" class="invite-image" alt="Invitation 6">
+
+  <img src="7.jpg" class="invite-image" alt="Invitation 7">
+
+  <img src="8.jpg" class="invite-image" alt="Invitation 8">
+
+</main>
+
+<script>
+
+/* OPEN INVITATION */
+
+let opened = false;
+
+function openInvitation() {
+
+  if (opened) return;
+  opened = true;
+
+  const cover = document.getElementById('cover');
+  const website = document.getElementById('website');
+
+  cover.classList.add('opening');
+
+  setTimeout(() => {
+
+    document.body.classList.add('unlocked');
+
+    website.classList.add('show');
+
+    cover.classList.add('hide');
+
+    document.body.style.overflowX = 'hidden';
+    document.body.style.overflowY = 'auto';
+
+  }, 1000);
+
+}
+
+/* MUSIC PLAYER */
+
+const music = document.getElementById('music');
+const playBtn = document.getElementById('playBtn');
+const progress = document.getElementById('progress');
+
+function toggleMusic() {
+
+  if (music.paused) {
+
+    music.play().then(() => {
+      playBtn.innerHTML = 'Ⅱ';
+    }).catch(() => {
+      playBtn.innerHTML = '▶';
+    });
+
+  } else {
+
+    music.pause();
+    playBtn.innerHTML = '▶';
+
+  }
+
+}
+
+music.addEventListener('ended', () => {
+  playBtn.innerHTML = '▶';
+});
+
+music.addEventListener('pause', () => {
+  playBtn.innerHTML = '▶';
+});
+
+music.addEventListener('play', () => {
+  playBtn.innerHTML = 'Ⅱ';
+});
+
+function formatTime(seconds) {
+
+  if (!isFinite(seconds)) return '0:00';
+
+  const min = Math.floor(seconds / 60);
+  const sec = Math.floor(seconds % 60);
+
+  return min + ':' + String(sec).padStart(2,'0');
+
+}
+
+music.addEventListener('loadedmetadata', () => {
+  document.getElementById('duration').textContent =
+    formatTime(music.duration);
+});
+
+music.addEventListener('timeupdate', () => {
+
+  const percentage =
+    (music.currentTime / music.duration) * 100;
+
+  progress.style.width = percentage + '%';
+
+  document.getElementById('currentTime').textContent =
+    formatTime(music.currentTime);
+
+});
+
+/* FALLING GOLD & PINK DOTS */
+
+const particleBox = document.getElementById('particles');
+
+const particleColors = [
+  '#e9b8c5',
+  '#f1c6ce',
+  '#d8b16e',
+  '#edc8a0',
+  '#f5d8df',
+  '#cda66e'
+];
+
+for (let i = 0; i < 45; i++) {
+
+  const dot = document.createElement('span');
+
+  dot.className = 'dot';
+
+  const size = Math.random() * 3 + 1;
+
+  dot.style.width = size + 'px';
+  dot.style.height = size + 'px';
+
+  dot.style.left = Math.random() * 100 + '%';
+
+  dot.style.background =
+    particleColors[
+      Math.floor(Math.random() * particleColors.length)
+    ];
+
+  dot.style.animationDuration =
+    (Math.random() * 9 + 7) + 's';
+
+  dot.style.animationDelay =
+    (Math.random() * 12) + 's';
+
+  particleBox.appendChild(dot);
+
+}
+
+</script>
+
+</body>
+</html>
+
