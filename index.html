@@ -59,6 +59,39 @@ body.unlocked {
   transform: scale(1.3);
 }
 
+/* COVER GRADIENT EDGES */
+
+#cover::before,
+#cover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 12%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+#cover::before {
+  top: 0;
+  background: linear-gradient(
+    to bottom,
+    #fff0ef 0%,
+    rgba(255,240,239,.65) 30%,
+    transparent 100%
+  );
+}
+
+#cover::after {
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    #fff0ef 0%,
+    rgba(255,240,239,.65) 30%,
+    transparent 100%
+  );
+}
+
 #cover.hide {
   opacity: 0;
   visibility: hidden;
@@ -78,7 +111,15 @@ body.unlocked {
   visibility: visible;
 }
 
-/* ALL IMAGES */
+/* IMAGE WRAPPERS */
+
+.image-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  background: #fff5f3;
+}
 
 .invite-image {
   display: block;
@@ -90,16 +131,50 @@ body.unlocked {
   vertical-align: top;
 }
 
+/* SOFT GRADIENT AT EVERY IMAGE START AND END */
+
+.image-wrap::before,
+.image-wrap::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 9%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.image-wrap::before {
+  top: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,239,239,.85) 0%,
+    rgba(255,243,240,.4) 40%,
+    transparent 100%
+  );
+}
+
+.image-wrap::after {
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    rgba(255,239,239,.85) 0%,
+    rgba(255,243,240,.4) 40%,
+    transparent 100%
+  );
+}
+
 /* MUSIC PLAYER */
 
 .music-section {
   width: 100%;
   padding: 24px 18px;
   background: linear-gradient(
-    135deg,
-    #fff5f3,
-    #fce8e8,
-    #fff9f2
+    to bottom,
+    #fff0ef,
+    #fff8f5 25%,
+    #fce8e8 75%,
+    #fff0ef
   );
   display: flex;
   justify-content: center;
@@ -220,6 +295,8 @@ body.unlocked {
   position: relative;
   width: 100%;
   line-height: 0;
+  overflow: hidden;
+  background: #fff5f3;
 }
 
 .venue-image img {
@@ -227,6 +304,39 @@ body.unlocked {
   height: auto;
   display: block;
 }
+
+/* VENUE IMAGE GRADIENT */
+
+.venue-image::before,
+.venue-image::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 9%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.venue-image::before {
+  top: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,239,239,.8),
+    transparent
+  );
+}
+
+.venue-image::after {
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    rgba(255,239,239,.8),
+    transparent
+  );
+}
+
+/* VENUE ADDRESS */
 
 .venue-address {
   position: absolute;
@@ -242,15 +352,53 @@ body.unlocked {
   letter-spacing: 1.3px;
   font-weight: 600;
   text-shadow: 0 1px 6px #fff9f3;
+  z-index: 3;
 }
+
+/* GOLDEN MAP STICKER */
+
+.map-sticker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto 8px;
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  border: 1px solid #d4b17e;
+  background: linear-gradient(
+    145deg,
+    #fffaf0,
+    #f4dfc2,
+    #fff9ed
+  );
+  box-shadow:
+    0 3px 12px rgba(157,115,68,.18),
+    inset 0 1px 4px white;
+  color: #ae8652;
+  font-size: 21px;
+  line-height: 1;
+  animation: mapFloat 3s ease-in-out infinite;
+}
+
+@keyframes mapFloat {
+  0%,100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* GOOGLE MAP BUTTON */
 
 .map-link {
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 3px;
   padding: 9px 20px;
   border: 1px solid #c6a17d;
   border-radius: 30px;
-  background: rgba(255,248,243,.94);
+  background: rgba(255,248,243,.96);
   color: #987253;
   text-decoration: none;
   font-family: 'DM Sans', sans-serif;
@@ -261,7 +409,7 @@ body.unlocked {
   box-shadow: 0 3px 10px rgba(130,90,60,.1);
 }
 
-/* FALLING DOTS - START IMMEDIATELY */
+/* FALLING PINK & GOLD DOTS */
 
 #particles {
   position: fixed;
@@ -303,6 +451,7 @@ body.unlocked {
 /* MOBILE */
 
 @media(max-width:600px) {
+
   .music-section {
     padding: 18px 14px;
   }
@@ -314,24 +463,37 @@ body.unlocked {
     line-height: 1.5;
   }
 
+  .map-sticker {
+    width: 37px;
+    height: 37px;
+    font-size: 18px;
+    margin: 7px auto 6px;
+  }
+
   .map-link {
     font-size: 11px;
     padding: 8px 17px;
-    margin-top: 8px;
   }
+
+  .image-wrap::before,
+  .image-wrap::after {
+    height: 7%;
+  }
+
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- OPENING IMAGE -->
+<!-- OPENING IMAGE 1 -->
 
 <div id="cover" onclick="openInvitation()">
   <img src="1.JPG" alt="Wedding Invitation Cover">
 </div>
 
-<!-- DOTS START ON PAGE LOAD -->
+<!-- FALLING DOTS -->
 
 <div id="particles"></div>
 
@@ -341,11 +503,9 @@ body.unlocked {
 
   <!-- IMAGE 2 -->
 
-  <img
-    src="2.JPG"
-    class="invite-image"
-    alt="Wedding Invitation Reveal"
-  >
+  <div class="image-wrap">
+    <img src="2.JPG" class="invite-image" alt="Wedding Invitation Reveal">
+  </div>
 
   <!-- MUSIC PLAYER -->
 
@@ -394,7 +554,7 @@ body.unlocked {
     <source src="./piano.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- IMAGE 3 + GOOGLE MAP -->
+  <!-- IMAGE 3 + VENUE + MAP -->
 
   <section class="venue-image">
 
@@ -406,7 +566,11 @@ body.unlocked {
       24 SOUTH AUDLEY STREET<br>
       MAYFAIR, LONDON W1K 2PA
 
-      <br>
+      <!-- MAP STICKER -->
+
+      <div class="map-sticker">📍</div>
+
+      <!-- GOOGLE MAP -->
 
       <a
         class="map-link"
@@ -423,23 +587,31 @@ body.unlocked {
 
   <!-- REMAINING IMAGES -->
 
-  <img src="4.JPG" class="invite-image" alt="Invitation 4">
+  <div class="image-wrap">
+    <img src="4.JPG" class="invite-image" alt="Invitation 4">
+  </div>
 
-  <img src="5.JPG" class="invite-image" alt="Invitation 5">
+  <div class="image-wrap">
+    <img src="5.JPG" class="invite-image" alt="Invitation 5">
+  </div>
 
-  <img src="6.JPG" class="invite-image" alt="Invitation 6">
+  <div class="image-wrap">
+    <img src="6.JPG" class="invite-image" alt="Invitation 6">
+  </div>
 
-  <img src="7.jpg" class="invite-image" alt="Invitation 7">
+  <div class="image-wrap">
+    <img src="7.jpg" class="invite-image" alt="Invitation 7">
+  </div>
 
-  <img src="8.jpg" class="invite-image" alt="Invitation 8">
+  <div class="image-wrap">
+    <img src="8.jpg" class="invite-image" alt="Invitation 8">
+  </div>
 
 </main>
 
 <script>
 
-/* OPEN INVITATION
-   NO MUSIC AUTOPLAY
-*/
+/* OPEN INVITATION - NO MUSIC AUTOPLAY */
 
 let opened = false;
 
@@ -490,7 +662,7 @@ function toggleMusic() {
     }).catch((error) => {
 
       playBtn.innerHTML = '▶';
-      musicStatus.textContent = 'MUSIC FILE NOT FOUND';
+      musicStatus.textContent = 'CHECK PIANO.MP3 FILE';
 
       console.error('Music playback error:', error);
 
@@ -559,9 +731,7 @@ music.addEventListener('timeupdate', () => {
 
 });
 
-/* PINK & GOLD FALLING DOTS
-   START IMMEDIATELY, EVEN ON IMAGE 1
-*/
+/* FALLING DOTS START FROM OPENING SCREEN */
 
 const particleBox = document.getElementById('particles');
 
@@ -595,8 +765,6 @@ for (let i = 0; i < 55; i++) {
   const duration = Math.random() * 8 + 7;
 
   dot.style.animationDuration = duration + 's';
-
-  /* Negative delay makes dots already falling on opening */
 
   dot.style.animationDelay =
     (-Math.random() * duration) + 's';
